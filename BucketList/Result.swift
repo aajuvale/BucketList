@@ -15,8 +15,16 @@ struct Query: Codable {
     let pages: [Int: Page]
 }
 
-struct Page: Codable, Hashable {
+struct Page: Codable, Comparable, Hashable {
     let pageid: Int
     let title: String
     let terms: [String: [String]]?
+
+    var description: String {
+        terms?["descripotion"]?.first ?? "No further information"
+    }
+    
+    static func <(lhs: Page, rhs: Page) -> Bool {
+        lhs.title < rhs.title
+    }
 }
